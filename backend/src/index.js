@@ -12,6 +12,11 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 
+// Health Check Root Endpoint (Browser එකෙන් URL එක check කිරීමට)
+app.get('/', (req, res) => {
+  res.json({ status: 'StoryWeaver Backend is live and running!' });
+});
+
 const REGION = process.env.AWS_REGION || 'ap-south-1';
 
 // AWS Service Clients
@@ -137,8 +142,9 @@ Always conclude with an intriguing cliffhanger decision for the adventurer.`;
   }
 });
 
+// Port listen logic (Local එකේ run වෙද්දී විතරක් listen වේ, Lambda එකේදී listen නොවේ)
 const PORT = process.env.PORT || 5000;
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production' && !process.env.AWS_LAMBDA_FUNCTION_NAME) {
   app.listen(PORT, () => {
     console.log(`StoryWeaver Backend running on port ${PORT}`);
   });

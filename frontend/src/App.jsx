@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { Mic, MicOff, Volume2, Sparkles, BookOpen, RefreshCw, Send } from 'lucide-react';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const API_BASE = 'https://mrybogha2useb6wj26tzathdku0knzgg.lambda-url.ap-south-1.on.aws';
 
 class FallbackSpeechRecognition {
   constructor() {
